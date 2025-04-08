@@ -1,0 +1,158 @@
+      {/* Add Student Modal */}
+      {addMode && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg shadow-lg w-full max-w-xl">
+            <div className="bg-primary text-white p-4 rounded-t-lg flex justify-between items-center">
+              <h3 className="text-xl font-semibold">Add New Student</h3>
+              <button onClick={() => setAddMode(false)} className="text-white">
+                <span className="material-icons">close</span>
+              </button>
+            </div>
+            <div className="p-4 max-h-[80vh] overflow-y-auto">
+              <div className="mb-3 flex items-center">
+                <button 
+                  type="button" 
+                  className="btn-action btn-secondary flex items-center"
+                  onClick={() => setAddMode(false)}
+                >
+                  <span className="material-icons mr-1">arrow_back</span>
+                  Back to Students
+                </button>
+              </div>
+              
+              <form onSubmit={handleSubmit}>
+                <h4 className="font-semibold mb-3 text-sm uppercase text-gray-600 tracking-wider">Basic Information</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                  <div className="form-group">
+                    <label htmlFor="name">Name*</label>
+                    <input 
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={studentForm.name}
+                      onChange={handleFormChange}
+                      required
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="rollNumber">Roll Number*</label>
+                    <input 
+                      type="text"
+                      id="rollNumber"
+                      name="rollNumber"
+                      value={studentForm.rollNumber}
+                      onChange={handleFormChange}
+                      required
+                    />
+                    <small className="text-gray-500 text-xs">This will be used as the username</small>
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="gender">Gender*</label>
+                    <select 
+                      id="gender"
+                      name="gender"
+                      value={studentForm.gender}
+                      onChange={handleFormChange}
+                      required
+                    >
+                      <option value="">Select Gender</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="dob">Date of Birth</label>
+                    <input 
+                      type="text"
+                      id="dob"
+                      name="dob"
+                      placeholder="DD/MM/YYYY"
+                      value={studentForm.dob}
+                      onChange={handleFormChange}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="admissionNo">Admission No.</label>
+                    <input 
+                      type="text"
+                      id="admissionNo"
+                      name="admissionNo"
+                      value={studentForm.admissionNo}
+                      onChange={handleFormChange}
+                    />
+                  </div>
+                </div>
+                
+                <h4 className="font-semibold mb-3 text-sm uppercase text-gray-600 tracking-wider">Contact Information</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                  <div className="form-group">
+                    <label htmlFor="parentName">Parent/Guardian</label>
+                    <input 
+                      type="text"
+                      id="parentName"
+                      name="parentName"
+                      value={studentForm.parentName}
+                      onChange={handleFormChange}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="phone">Phone</label>
+                    <input 
+                      type="text"
+                      id="phone"
+                      name="phone"
+                      value={studentForm.phone}
+                      onChange={handleFormChange}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="email">Email</label>
+                    <input 
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={studentForm.email}
+                      onChange={handleFormChange}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="address">Address</label>
+                    <input 
+                      type="text"
+                      id="address"
+                      name="address"
+                      value={studentForm.address}
+                      onChange={handleFormChange}
+                    />
+                  </div>
+                </div>
+                
+                <div className="flex justify-between mt-4">
+                  <button 
+                    type="button" 
+                    className="btn-action btn-secondary"
+                    onClick={() => setAddMode(false)}
+                  >
+                    Cancel
+                  </button>
+                  <button 
+                    type="submit" 
+                    className="btn-action btn-primary"
+                    disabled={addStudentMutation.isPending}
+                  >
+                    {addStudentMutation.isPending ? 'Adding...' : 'Add Student'}
+                  </button>
+                </div>
+                
+                {addStudentMutation.isError && (
+                  <div className="alert alert-error mt-4">
+                    <span className="material-icons">error</span>
+                    <p>{addStudentMutation.error.message || 'Error adding student'}</p>
+                  </div>
+                )}
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
